@@ -1,0 +1,84 @@
+{
+    "bink2w64.dll": 435712,
+    "common.rpf": 27705344,
+    "d3dcompiler_46.dll": 3873208,
+    "d3dcsx_46.dll": 1916872,
+    "fvad.dll": 34288,
+    "GFSDK_ShadowLib.win64.dll": 3954688,
+    "GFSDK_TXAA.win64.dll": 94720,
+    "GFSDK_TXAA_AlphaResolve.win64.dll": 94720,
+    "GPUPerfAPIDX11-x64.dll": 8660480,
+    "GTA5.exe": 49634800,
+    "GTAVLanguageSelect.exe": 306672,
+    "GTAVLauncher.exe": 306672,
+    "installscript.vdf": 466,
+    "installscript_sdk.vdf": 829,
+    "irrKlang.dll": 585216,
+    "libcurl.dll": 502256,
+    "Metadata.dll": 12288,
+    "Metadata.pdb": 30208,
+    "NvPmApi.Core.win64.dll": 3677696,
+    "opus.dll": 410608,
+    "opusenc.dll": 59888,
+    "PlayGTAV.exe": 306672,
+    "Redistributables": [
+        {
+            "file_len": 2
+        },
+        {
+            "dir_size": 202.43991088867188
+        }
+    ],
+    "steam_api64.dll": 239904,
+    "title.rgl": 1824,
+    "toxmod.dll": 155632,
+    "update": [
+        {
+            "file_len": 3
+        },
+        {
+            "dir_size": 59020.54587554932
+        }
+    ],
+    "version.txt": 9,
+    "x64": [
+        {
+            "file_len": 3
+        },
+        {
+            "dir_size": 17060.356058120728
+        }
+    ],
+    "x64a.rpf": 48707584,
+    "x64b.rpf": 149448704,
+    "x64c.rpf": 2196207616,
+    "x64d.rpf": 1804668928,
+    "x64e.rpf": 2115954688,
+    "x64f.rpf": 1028757504,
+    "x64g.rpf": 2552596480,
+    "x64h.rpf": 1699563520,
+    "x64i.rpf": 1787043840,
+    "x64j.rpf": 2109519872,
+    "x64k.rpf": 2365648896,
+    "x64l.rpf": 2577571840,
+    "x64m.rpf": 1807249408,
+    "x64n.rpf": 1638481920,
+    "x64o.rpf": 1758345216,
+    "x64p.rpf": 1428606976,
+    "x64q.rpf": 2823614464,
+    "x64r.rpf": 1711259648,
+    "x64s.rpf": 1646266368,
+    "x64t.rpf": 1924630528,
+    "x64u.rpf": 1354405888,
+    "x64v.rpf": 1942046720,
+    "x64w.rpf": 937340928,
+    "zlib1.dll": 99824,
+    "_CommonRedist": [
+        {
+            "file_len": 2
+        },
+        {
+            "dir_size": 0.0
+        }
+    ]
+}
