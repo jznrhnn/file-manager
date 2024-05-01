@@ -3,6 +3,34 @@ from tkinter import ttk, messagebox
 import fileManager
 import time
 import threading
+from babel.support import Translations
+import os
+import gettext
+
+current_language = "cn"
+
+locale_dir = os.path.join(os.path.dirname(__file__), 'language')
+# 设置默认语言环境为中文
+translator = gettext.translation(
+    'messages', localedir=locale_dir, languages=[current_language])
+translator.install()
+# 导入函数
+t = translator.gettext
+
+
+# 切换语言
+
+
+def change_language():
+    global t
+    global current_language
+    current_language = "cn" if current_language == "en" else "cn" 
+
+    translator = gettext.translation(
+        'messages', localedir=locale_dir, languages=[current_language])
+    translator.install()
+    t = translator.gettext
+    initBox()
 
 
 def record_origin_game(replace=False):
@@ -11,7 +39,8 @@ def record_origin_game(replace=False):
         alert = messagebox.showinfo("Command Executed", message)
     else:
         alert = messagebox.askquestion(
-            "Warnning", message+"\nDo you want to replace it?", icon='warning')
+            # Do you want to replace it?
+            t("warnBoxMessage"), message+"\n"+t("ReplaceWarn"), icon='warning')
         if alert == 'yes':
             record_origin_game(replace=True)
 
@@ -54,12 +83,21 @@ def show_difference():
     removed_files = [key for key, value in differences.items(
     ) if value == fileManager.FILE_STATUS.DELETED]
 
-    overview_label.config(
-        text=f'''Origin File size: {len(origin_file_info)}    Current File: {len(current_file_info)}
-    files added: {len(added_files)}
-    files modified: {len(modified_files)}
-    files removed: {len(removed_files)}'''
-    )
+    origin_file_size_msg = t("Origin File size")+": {origin_file_size}"
+    current_file_msg = t("Current File size")+": {current_file_size}"
+    added_files_msg = t("Files added")+": {added_files_count}"
+    modified_files_msg = t("Files modified")+": {modified_files_count}"
+    removed_files_msg = t("Files removed")+": {removed_files_count}"
+
+    message = "\n".join([
+        origin_file_size_msg.format(origin_file_size=len(origin_file_info)),
+        current_file_msg.format(current_file_size=len(current_file_info)),
+        added_files_msg.format(added_files_count=len(added_files)),
+        modified_files_msg.format(modified_files_count=len(modified_files)),
+        removed_files_msg.format(removed_files_count=len(removed_files))
+    ])
+
+    overview_label.config(text=message)
 
 
 def initBox():
@@ -85,8 +123,8 @@ def restore_origin():
     move_result, move_message = fileManager.move_files(fileManager.config_game_path, fileManager.config_backup_path,
                                                        fileManager.config_original_list, True)
     if move_result == fileManager.SUCCESS_CODE:
-        messagebox.showinfo("Command Executed",
-                            "Origin game files restored")
+        messagebox.showinfo(t("commandExecuted"),
+                            t("filesRestored"))
     else:
         messagebox.showerror("Error", move_message)
 
@@ -100,7 +138,8 @@ def restore_origin_with_progress():
     move_files_thread.start()
     if file_size/1024/1024/1024 > 1:
         messagebox.showwarning(
-            "Warnning", "The size of the files to be moved is too large, it may take a long time to complete the operation, please be patient")
+            # The size of the files to be moved is too large, it may take a long time to complete the operation, please be patient
+            t("warnBoxMessage"), t("largeFileSizeWarn"))
         while fileManager.get_folder_size(fileManager.config_backup_path) != 0:
             current_size = fileManager.get_folder_size(
                 fileManager.config_backup_path)
@@ -115,8 +154,9 @@ def load_mod_files():
     move_result, move_message = fileManager.move_files(fileManager.config_backup_path, fileManager.config_game_path,
                                                        fileManager.config_original_list, False)
     if move_result == fileManager.SUCCESS_CODE:
-        messagebox.showinfo("Command Executed",
-                            "Origin game files restored")
+        # "Command Executed",
+        # "Origin game files restored"
+        messagebox.showinfo(t("commandExecuted"), t("filesRestored"))
     else:
         messagebox.showerror("Error", move_message)
 
@@ -130,7 +170,7 @@ def load_mod_files_with_progress():
     move_files_thread.start()
     if file_size/1024/1024/1024 > 1:
         messagebox.showwarning(
-            "Warnning", "The size of the files to be moved is too large, it may take a long time to complete the operation, please be patient")
+            t("warnBoxMessage"), t("largeFileSizeWarn"))
         while fileManager.get_folder_size(fileManager.config_backup_path) != 0:
             current_size = fileManager.get_folder_size(
                 fileManager.config_backup_path)
@@ -162,7 +202,7 @@ differences = {}
 
 # create window
 root = tk.Tk()
-root.title("Mode Manager")
+root.title(t("projectTitle"))
 root.geometry("700x480")  # Adjust window size
 
 # create a frame for buttons
@@ -185,11 +225,11 @@ listbox2 = tk.Listbox(frame)
 # create title labels
 title_frame = tk.Frame(frame)
 title_frame.pack(side=tk.TOP, fill=tk.X)
-title_label1 = tk.Label(title_frame, text="Origin File",
+title_label1 = tk.Label(title_frame, text=t("listBoxTitle1"),
                         font=("Arial", 12, "bold"))
 title_label1.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-title_label2 = tk.Label(title_frame, text="Current File",
+title_label2 = tk.Label(title_frame, text="listBoxTitle2",
                         font=("Arial", 12, "bold"))
 title_label2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
@@ -197,16 +237,20 @@ initBox()
 
 # create buttons
 button_union = tk.Button(
-    button_bar, text="Record Origin Game File", command=record_origin_game)
+    # Record Origin Game File
+    button_bar, text=t("recordButton"), command=record_origin_game)
 button_difference = tk.Button(
-    button_bar, text="Show Difference", command=show_difference)
+    # Show Difference
+    button_bar, text=t("showDifference"), command=show_difference)
 button_restore = tk.Button(
-    button_bar, text="Restore Origin Game File", command=restore_origin_with_progress)
+    # Restore Origin Game File
+    button_bar, text=t("restoreOriginFile"), command=restore_origin_with_progress)
 button_load_mods = tk.Button(
-    button_bar, text="Load Mod File", command=load_mod_files_with_progress)
+    # Load Mod File
+    button_bar, text=t("loadFileButton"), command=load_mod_files_with_progress)
 # TODO: add mode button, compare file with md5
 button_mode = tk.Button(
-    button_bar, text="File Difference Mods (Default, Size and File Number)", command=restore_origin_with_progress)
+    button_bar, text=t("languageButton")+"/"+current_language, command=change_language)
 
 # Place buttons at the bottom of the window
 button_union.pack(side=tk.LEFT, padx=5)

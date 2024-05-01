@@ -1,0 +1,80 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 01:39+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: mainUI.py:42 mainUI.py:141 mainUI.py:172
+msgid "warnBoxMessage"
+msgstr "警告框消息"
+
+#: mainUI.py:42
+msgid "ReplaceWarn"
+msgstr "替换警告"
+
+#: mainUI.py:85
+msgid "Origin File size"
+msgstr "原始文件大小"
+
+#: mainUI.py:86
+msgid "Current File size"
+msgstr "当前文件大小"
+
+#: mainUI.py:87
+msgid "Files added"
+msgstr "文件已添加"
+
+#: mainUI.py:88
+msgid "Files modified"
+msgstr "文件已修改"
+
+#: mainUI.py:89
+msgid "Files removed"
+msgstr "文件已移除"
+
+#: mainUI.py:125 mainUI.py:158
+msgid "commandExecuted"
+msgstr "命令已执行"
+
+#: mainUI.py:126 mainUI.py:158
+msgid "filesRestored"
+msgstr "文件已还原"
+
+#: mainUI.py:141 mainUI.py:172
+msgid "largeFileSizeWarn"
+msgstr "大文件大小警告"
+
+#: mainUI.py:204
+msgid "projectTitle"
+msgstr "项目标题"
+
+#: mainUI.py:227
+msgid "listBoxTitle1"
+msgstr "列表框标题1"
+
+#: mainUI.py:240
+msgid "recordButton"
+msgstr "记录按钮"
+
+#: mainUI.py:243
+msgid "showDifference"
+msgstr "显示差异"
+
+#: mainUI.py:246
+msgid "restoreOriginFile"
+msgstr "恢复原始文件"
+
+#: mainUI.py:249
+msgid "loadFileButton"
+msgstr "加载文件按钮"
+
+#: mainUI.py:252
+msgid "languageButton"
+msgstr "语言按钮"
