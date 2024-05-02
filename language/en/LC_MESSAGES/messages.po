@@ -11,6 +11,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "languageChangedWarn"
+msgstr "change language need reboot the window,Do you want to do it now?"
+
 #: mainUI.py:42 mainUI.py:141 mainUI.py:172
 msgid "warnBoxMessage"
 msgstr "Warning Box Message"
@@ -78,3 +81,16 @@ msgstr "Load File Button"
 #: mainUI.py:252
 msgid "languageButton"
 msgstr "Language Button"
+
+msgid "yes"
+msgstr "Yes"
+
+msgid "no"
+msgstr "No"
+
+msgid "fileExistMessage"
+msgstr "origin file record already exist"
+
+
+msgid "fileRecordSuccessMessage"
+msgstr "origin file record already exist"

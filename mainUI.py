@@ -3,36 +3,45 @@ from tkinter import ttk, messagebox
 import fileManager
 import time
 import threading
-from babel.support import Translations
 import os
 import gettext
+import configparser
 
-current_language = "cn"
+# load the config file
+config = configparser.ConfigParser()
+config.read('config.ini')
 
+current_language = config.get('language', 'language')
+
+# 导入函数
 locale_dir = os.path.join(os.path.dirname(__file__), 'language')
-# 设置默认语言环境为中文
 translator = gettext.translation(
     'messages', localedir=locale_dir, languages=[current_language])
 translator.install()
-# 导入函数
+
 t = translator.gettext
 
 
 # 切换语言
-
-
 def change_language():
-    global t
     global current_language
-    current_language = "cn" if current_language == "en" else "cn" 
+    current_language = "en" if current_language == "cn" else "cn"
 
-    translator = gettext.translation(
-        'messages', localedir=locale_dir, languages=[current_language])
-    translator.install()
-    t = translator.gettext
-    initBox()
+    # 修改配置值
+    config['language']['language'] = current_language
+
+    # 保存修改后的配置文件
+    with open('config.ini', 'w') as configfile:
+        config.write(configfile)
+
+    alert = messagebox.askquestion(
+        t("warnBoxMessage"), t("languageChangedWarn"))
+    if alert == 'yes':
+        # 关闭当前窗口
+        root.destroy()
 
 
+# 记录目录文件
 def record_origin_game(replace=False):
     status_code, message = fileManager.record_origin_game(replace=replace)
     if status_code == fileManager.SUCCESS_CODE:
@@ -47,6 +56,7 @@ def record_origin_game(replace=False):
     initBox()
 
 
+# 显示两个列表的区别
 def show_difference():
     # show added files as green in listbox2
     global differences
@@ -100,6 +110,7 @@ def show_difference():
     overview_label.config(text=message)
 
 
+# 显示文件列表
 def initBox():
     # clear listbox
     listbox1.delete(0, tk.END)
@@ -119,6 +130,7 @@ def initBox():
         listbox2.insert(tk.END, item)
 
 
+# 恢复原始文件
 def restore_origin():
     move_result, move_message = fileManager.move_files(fileManager.config_game_path, fileManager.config_backup_path,
                                                        fileManager.config_original_list, True)
@@ -131,6 +143,7 @@ def restore_origin():
     initBox()
 
 
+# 恢复原始文件并显示进度
 def restore_origin_with_progress():
     _, file_size = fileManager.move_files(fileManager.config_game_path, fileManager.config_backup_path,
                                           fileManager.config_original_list, backup=True, predict=True)

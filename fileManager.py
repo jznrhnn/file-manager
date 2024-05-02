@@ -5,6 +5,7 @@ import json
 from enum import Enum
 import shutil
 import time
+import gettext
 
 # load the config file
 config = configparser.ConfigParser()
@@ -27,6 +28,15 @@ config_original_list = config.get('game', 'original_list')
 
 config_backup_path = config.get('mods', 'backup_path')
 
+current_language = config.get('language', 'language')
+
+# 导入语言函数
+locale_dir = os.path.join(os.path.dirname(__file__), 'language')
+translator = gettext.translation(
+    'messages', localedir=locale_dir, languages=[current_language])
+translator.install()
+
+t = translator.gettext
 
 def calculate_file_hash(file_path, algorithm='MD5'):
     """calculate the hash value of the file
@@ -110,13 +120,13 @@ def record_origin_game(fullFile=False, replace=False):
 
     # alert if file already exists
     if os.path.exists(config_original_list) and not replace:
-        return ERROR_CODE, "origin file record already exist"
+        return ERROR_CODE, t("fileExistMessage")
 
     # save file list
     with open(config_original_list, 'w') as file:
         json.dump(file_records, file, indent=4)
 
-    return SUCCESS_CODE, "origin file record saved"
+    return SUCCESS_CODE, t("fileRecordSuccessMessage")
 
 
 def load_file_info_json(file_path=config_original_list):

@@ -15,6 +15,9 @@ msgstr ""
 msgid "warnBoxMessage"
 msgstr "警告框消息"
 
+msgid "languageChangedWarn"
+msgstr "切换语言需要重新启动，是否立即重启？"
+
 #: mainUI.py:42
 msgid "ReplaceWarn"
 msgstr "替换警告"
@@ -78,3 +81,16 @@ msgstr "加载文件按钮"
 #: mainUI.py:252
 msgid "languageButton"
 msgstr "语言按钮"
+
+msgid "yes"
+msgstr "是"
+
+msgid "no"
+msgstr "否"
+
+msgid "fileExistMessage"
+msgstr "文件已存在是否进行覆盖"
+
+
+msgid "fileRecordSuccessMessage"
+msgstr "文件记录成功"
