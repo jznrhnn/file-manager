@@ -22,11 +22,11 @@ class FILE_STATUS(Enum):
     DELETED = 3
 
 
-config_game_path = config.get('game', 'game_path')
+config_file_path = config.get('file', 'file_path')
 
-config_original_list = config.get('game', 'original_list')
+config_file_record = config.get('file', 'file_record')
 
-config_backup_path = config.get('mods', 'backup_path')
+config_backup_path = config.get('backup', 'backup_path')
 
 current_language = config.get('language', 'language')
 
@@ -79,7 +79,7 @@ def get_folder_size(folder_path):
     return total_size
 
 
-def load_file_info(dir_path=config_game_path, fullFile=False, hash=False):
+def load_file_info(dir_path=config_file_path, fullFile=False, hash=False):
     """load the file list from the file system
     Args:
         file_path (str): the path of the file
@@ -114,22 +114,22 @@ def load_file_info(dir_path=config_game_path, fullFile=False, hash=False):
 def record_origin_game(fullFile=False, replace=False):
     # Get the list of files in the directory
     file_records = {}
-    file_list = os.listdir(config_game_path)
+    file_list = os.listdir(config_file_path)
 
     file_records = load_file_info()
 
     # alert if file already exists
-    if os.path.exists(config_original_list) and not replace:
+    if os.path.exists(config_file_record) and not replace:
         return ERROR_CODE, t("fileExistMessage")
 
     # save file list
-    with open(config_original_list, 'w') as file:
+    with open(config_file_record, 'w') as file:
         json.dump(file_records, file, indent=4)
 
     return SUCCESS_CODE, t("fileRecordSuccessMessage")
 
 
-def load_file_info_json(file_path=config_original_list):
+def load_file_info_json(file_path=config_file_record):
     """load the file list from the json file
     Args:
         file_path (str): the path of the file
@@ -176,8 +176,15 @@ def file_difference(file1, file2):
 
     return file_map
 
-
 def move_files(source_path, destination_path, file_record_path=None, backup=True, predict=False):
+    """move files from source path to destination path
+    Args:
+        source_path (str): the path of the source directory
+        destination_path (str): the path of the destination directory
+        file_record_path (str, optional): the path of the file record. Defaults to None.
+        backup (bool, optional): whether to backup the files. Defaults to True.
+        predict (bool, optional): whether to predict the size of the files. Defaults to False.
+    """
     start_time = time.time()
     source_files_info = load_file_info(source_path)
 
@@ -190,7 +197,7 @@ def move_files(source_path, destination_path, file_record_path=None, backup=True
 
         # if destination file is not empty,return error
         if len(os.listdir(destination_path)) != 0:
-            return ERROR_CODE, "destination path is not empty,pelase check it"
+            return ERROR_CODE, t("BackUpPathNotEmptyError")
         # move files that are not in the origin file list to the destination path
         for file in source_files_info.keys():
             if file not in origin_files_info.keys():

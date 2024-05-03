@@ -52,7 +52,7 @@ msgstr "Files Restored"
 
 #: mainUI.py:141 mainUI.py:172
 msgid "largeFileSizeWarn"
-msgstr "Large File Size Warning"
+msgstr "Large files are larger and may take more time. Please wait patiently"
 
 #: mainUI.py:204
 msgid "projectTitle"
@@ -94,3 +94,6 @@ msgstr "origin file record already exist"
 
 msgid "fileRecordSuccessMessage"
 msgstr "origin file record already exist"
+
+msgid "BackUpPathNotEmptyError"
+msgstr "Backup path is not empty,pelase check it"

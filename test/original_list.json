@@ -1,4 +1,12 @@
 {
-    "bink2w64.dll": 435712,
-    "test.dll": 0
+    "test copy.dll": 0,
+    "test.dll": 0,
+    "test_dir": [
+        {
+            "file_len": 1
+        },
+        {
+            "dir_size": 0
+        }
+    ]
 }

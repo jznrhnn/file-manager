@@ -4,6 +4,7 @@ import fileManager
 
 class TestFileManager(unittest.TestCase):
 
+    # 测试文件比较方法
     def test_difference(self):
         origin = {
             'a': 1,
@@ -47,6 +48,7 @@ class TestFileManager(unittest.TestCase):
         self.assertEqual(difference_test['x64'],
                          fileManager.FILE_STATUS.MODIFIED)
 
+    # 测试载入文件信息方法
     def test_load_file_info(self):
         files = fileManager.load_file_info('test/test0')
         self.assertEqual(files, {'test.dll': 0, 'test copy.dll': 0, 'test_dir': [{
@@ -56,13 +58,15 @@ class TestFileManager(unittest.TestCase):
                 "dir_size": 0
         }]})
 
+    # 测试移动文件方法
     def test_move_files(self):
         source_path = 'test/test1'
         destination_path = 'test/test2'
         file_log_path = 'test/original_list.json'
         current_files_info = fileManager.load_file_info(source_path)
-        fileManager.move_files(source_path, destination_path, file_log_path)
-
+        # 将test1中的文件移动到test2中
+        status,message=fileManager.move_files(source_path, destination_path, file_log_path)
+        print(status,message)
         source_file = fileManager.load_file_info(source_path)
         record_file = fileManager.load_file_info_json(file_log_path)
         # record file should contain all files in source dir

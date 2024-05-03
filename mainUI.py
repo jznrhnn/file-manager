@@ -132,8 +132,8 @@ def initBox():
 
 # 恢复原始文件
 def restore_origin():
-    move_result, move_message = fileManager.move_files(fileManager.config_game_path, fileManager.config_backup_path,
-                                                       fileManager.config_original_list, True)
+    move_result, move_message = fileManager.move_files(fileManager.config_file_path, fileManager.config_backup_path,
+                                                       fileManager.config_file_record, True)
     if move_result == fileManager.SUCCESS_CODE:
         messagebox.showinfo(t("commandExecuted"),
                             t("filesRestored"))
@@ -145,14 +145,16 @@ def restore_origin():
 
 # 恢复原始文件并显示进度
 def restore_origin_with_progress():
-    _, file_size = fileManager.move_files(fileManager.config_game_path, fileManager.config_backup_path,
-                                          fileManager.config_original_list, backup=True, predict=True)
-    move_files_thread = threading.Thread(target=restore_origin)
-    move_files_thread.start()
-    if file_size/1024/1024/1024 > 1:
+    status, file_size = fileManager.move_files(fileManager.config_file_path, fileManager.config_backup_path,
+                                          fileManager.config_file_record, backup=True, predict=True)
+    if status != fileManager.SUCCESS_CODE:
         messagebox.showwarning(
             # The size of the files to be moved is too large, it may take a long time to complete the operation, please be patient
             t("warnBoxMessage"), t("largeFileSizeWarn"))
+        return
+    move_files_thread = threading.Thread(target=restore_origin)
+    move_files_thread.start()
+    if file_size/1024/1024/1024 > 1:
         while fileManager.get_folder_size(fileManager.config_backup_path) != 0:
             current_size = fileManager.get_folder_size(
                 fileManager.config_backup_path)
@@ -164,8 +166,8 @@ def restore_origin_with_progress():
 
 
 def load_mod_files():
-    move_result, move_message = fileManager.move_files(fileManager.config_backup_path, fileManager.config_game_path,
-                                                       fileManager.config_original_list, False)
+    move_result, move_message = fileManager.move_files(fileManager.config_backup_path, fileManager.config_file_path,
+                                                       fileManager.config_file_record, False)
     if move_result == fileManager.SUCCESS_CODE:
         # "Command Executed",
         # "Origin game files restored"
@@ -178,7 +180,7 @@ def load_mod_files():
 
 def load_mod_files_with_progress():
     _, file_size = fileManager.move_files(fileManager.config_backup_path,
-                                          fileManager.config_game_path, backup=False, predict=True)
+                                          fileManager.config_file_path, backup=False, predict=True)
     move_files_thread = threading.Thread(target=load_mod_files)
     move_files_thread.start()
     if file_size/1024/1024/1024 > 1:

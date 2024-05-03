@@ -52,7 +52,7 @@ msgstr "文件已还原"
 
 #: mainUI.py:141 mainUI.py:172
 msgid "largeFileSizeWarn"
-msgstr "大文件大小警告"
+msgstr "大文件较大，可能会花费较多时间，请耐心等待"
 
 #: mainUI.py:204
 msgid "projectTitle"
@@ -94,3 +94,6 @@ msgstr "文件已存在是否进行覆盖"
 
 msgid "fileRecordSuccessMessage"
 msgstr "文件记录成功"
+
+msgid "BackUpPathNotEmptyError"
+msgstr "当前目标文件不为空，请检查当前备份文件夹"
